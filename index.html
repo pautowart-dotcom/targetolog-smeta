@@ -46,9 +46,10 @@
     }
     header.scrolled { border-bottom-color: var(--line); box-shadow: 0 8px 30px rgba(20, 24, 22, 0.04); }
     .nav { display: flex; align-items: center; gap: 28px; min-height: 86px; }
-    .brand { display: flex; flex-direction: column; line-height: 1; }
-    .brand-name { font-size: 34px; font-weight: 800; letter-spacing: -0.06em; }
-    .brand-tag { margin-top: 5px; font-size: 14px; font-weight: 800; color: var(--green-deep); }
+    .brand { display: flex; flex-direction: row; align-items: center; gap: 10px; line-height: 1; }
+    .logo-mark { width: 54px; height: 54px; flex: none; }
+    .brand-name { display: block; font-size: 28px; font-weight: 800; letter-spacing: -0.06em; }
+    .brand-tag { display: block; margin-top: 4px; font-size: 12px; font-weight: 800; color: var(--green-deep); }
     .menu { display: flex; gap: 22px; margin-left: auto; color: #2a312d; font-weight: 600; font-size: 15px; }
     .menu a { position: relative; }
     .menu a::after {
@@ -94,18 +95,16 @@
       text-transform: uppercase; font-size: 13px; margin-bottom: 14px;
     }
     h1 {
-      margin: 0; font-size: clamp(84px, 11vw, 148px); line-height: 0.84;
-      letter-spacing: -0.07em; font-weight: 800;
+      margin: 0; font-size: clamp(46px, 6vw, 76px); line-height: 0.92;
+      letter-spacing: -0.055em; font-weight: 800; text-transform: uppercase;
     }
     h1 span { display: block; overflow: hidden; }
     h1 em {
       display: block; font-style: normal; color: var(--ink);
       transform: translateY(110%); animation: line-in 0.8s cubic-bezier(.16,1,.3,1) forwards;
     }
-    .tagline {
-      margin: 10px 0 0; font-size: clamp(28px, 3.4vw, 44px); font-weight: 800;
-      letter-spacing: -0.045em; color: var(--green); line-height: 1;
-    }
+    h1 span:nth-child(2) em { animation-delay: .12s; }
+    h1 span:nth-child(3) em { animation-delay: .24s; color: var(--green); }
     .lead { max-width: 480px; color: #3c4641; font-size: 18px; margin: 22px 0; }
     .hero-actions { display: flex; align-items: center; gap: 18px; margin: 8px 0 26px; }
     .trust { display: flex; gap: 12px; align-items: flex-start; color: #3d4742; max-width: 440px; }
@@ -113,7 +112,13 @@
       width: 42px; height: 42px; flex: none; border-radius: 12px; background: #fff;
       display: grid; place-items: center; border: 1px solid var(--line);
     }
-    .hero-visual { position: relative; height: 520px; }
+    .hero-visual { position: relative; min-height: 520px; }
+    .digger { width: 100%; height: auto; display: block; overflow: visible; }
+    .rig { animation: lurch 6.4s ease-in-out infinite; }
+    .dust circle { transform-box: fill-box; transform-origin: center; animation: puff 6.4s ease-in-out infinite; }
+    .dust circle:nth-child(2) { animation-delay: .08s; }
+    .dust circle:nth-child(3) { animation-delay: .16s; }
+    .dust circle:nth-child(4) { animation-delay: .05s; }
     .blob {
       position: absolute; inset: 40px 10px 30px 40px; border-radius: 48% 52% 44% 56%;
       background: radial-gradient(circle at 30% 30%, #fff 0, transparent 40%), linear-gradient(160deg, #d9f5e0, #b7ebc4 40%, #8fd9a4);
@@ -240,6 +245,17 @@
     @keyframes grow { from { transform: scaleY(0.15); } }
     @keyframes pulse { 50% { opacity: 0.35; } }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes lurch {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      28% { transform: translate(-18px, 14px) rotate(1.5deg); }
+      40% { transform: translate(-28px, 18px) rotate(2deg); }
+      70% { transform: translate(14px, -16px) rotate(-2deg); }
+    }
+    @keyframes puff {
+      0%, 24% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+      40% { opacity: 0.85; transform: translate(-18px, -26px) scale(1.3); }
+      58%, 100% { opacity: 0; transform: translate(-34px, -48px) scale(1.6); }
+    }
     @keyframes wipe { 0%, 15% { clip-path: inset(0 100% 0 0); } 45%, 70% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(0 100% 0 0); } }
     @media (max-width: 980px) {
       .menu { display: none; }
@@ -258,10 +274,8 @@
       .hero-grid, .split, .cards-3, .steps, .packages, .band, .cases, .calc, .row-2, .foot { grid-template-columns: 1fr; display: grid; }
       .steps { grid-template-columns: 1fr; }
       .steps::before, .steps::after { display: none; }
-      .hero-visual { height: 320px; }
-      .blob { inset: 24px 8px 0; }
-      .float-card { display: none; }
-      .ad-card { left: 0; top: 12px; width: 100%; }
+      .hero-visual { min-height: 0; }
+      .logo-mark { width: 46px; height: 46px; }
       .contacts { margin-left: auto; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -274,22 +288,36 @@
   <div class="progress" id="progress"></div>
   <header id="header">
     <div class="wrap nav">
-      <a class="brand" href="#top">
-        <span class="brand-name">ЛНС</span>
-        <span class="brand-tag">ломать не строить</span>
+      <a class="brand" href="#top" aria-label="ЛНС, ломать не строить">
+        <svg class="logo-mark" viewBox="0 0 72 72" aria-hidden="true">
+          <rect width="72" height="72" rx="16" fill="#141816"/>
+          <rect x="27" y="40" width="18" height="14" rx="2" fill="#efeae2"/>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" dur="2.8s" repeatCount="indefinite" values="-22 36 36;2 36 36;2 36 36;-22 36 36" keyTimes="0;0.18;0.42;1"/>
+            <path d="M12 20h16l8 16-10 4-14-10z" fill="#3DDC5A"/>
+            <path d="M20 36l6 4-8 2z" fill="#141816"/>
+          </g>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" dur="2.8s" repeatCount="indefinite" values="22 36 36;-2 36 36;-2 36 36;22 36 36" keyTimes="0;0.18;0.42;1"/>
+            <path d="M60 20H44l-8 16 10 4 14-10z" fill="#3DDC5A"/>
+            <path d="M52 36l-6 4 8 2z" fill="#141816"/>
+          </g>
+          <circle cx="36" cy="34" r="4" fill="#f2b42d"/>
+        </svg>
+        <span>
+          <span class="brand-name">ЛНС</span>
+          <span class="brand-tag">ломать не строить</span>
+        </span>
       </a>
       <nav class="menu" id="menu">
-        <a href="#problems">Ситуации</a>
-        <a href="#steps">Шаги</a>
-        <a href="#packages">Смета</a>
-        <a href="#cases">Объекты</a>
+        <a href="#calc">Расчёт сметы</a>
+        <a href="#cases">Выполненные объекты</a>
         <a href="#faq">Вопросы</a>
       </nav>
       <div class="contacts">
         <a class="phone" href="tel:+79282577237">8 (928) 257-72-37</a>
         <a class="max-link" href="https://max.ru/u/f9LHodD0cOI24IJj4nevjBvinW_4zqVhPaOeiPi8Rpf3WPYDueIz5mMdSIY" target="_blank" rel="noopener">написать в макс</a>
       </div>
-      <a class="btn" href="#calc">Получить расчёт</a>
       <button class="burger" id="burger" aria-label="Меню"><span></span></button>
     </div>
   </header>
@@ -298,36 +326,110 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">Снос зданий любой сложности</div>
-          <h1><span><em>ЛНС</em></span></h1>
-          <p class="tagline">ломать не строить</p>
-          <p class="lead">Сносим дом, недострой, фундамент или цех и вывозим то, что осталось. Сначала смотрим объект и считаем смету.</p>
+          <div class="eyebrow">Профессиональный снос зданий любой сложности</div>
+          <h1>
+            <span><em>Сносим</em></span>
+            <span><em>Сортируем</em></span>
+            <span><em>Очищаем</em></span>
+          </h1>
+          <p class="lead">Освободим ваш участок от старого фундамента, ветхого дома или промышленного цеха за 7–10 дней.</p>
           <div class="hero-actions">
-            <a class="btn" href="#calc">Получить расчёт <span class="arrow">→</span></a>
+            <a class="btn" href="#calc">Получить бесплатный расчёт <span class="arrow">→</span></a>
           </div>
           <div class="trust">
             <div class="trust-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="#1f7a34" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#1f7a34" stroke-width="1.8"/></svg>
             </div>
-            <div>В расчёте отдельно: работы по сносу и вывоз. Цену называем по объекту, не по прайсу с сайта.</div>
+            <div>Выезд инженера и расчёт — 0 ₽. Смета не изменится в процессе.</div>
           </div>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="blob"></div>
-          <article class="float-card one"><small>До старта</small>Смета по объекту</article>
-          <article class="ad-card">
-            <div class="ad-top">Объект <span class="live"><i></i>снос</span></div>
-            <div class="floors">
-              <span style="--w:62%"></span>
-              <span style="--w:76%"></span>
-              <span style="--w:88%"></span>
-              <span style="--w:100%"></span>
-            </div>
-            <div class="ground"></div>
-          </article>
-          <article class="float-card two"><small>После сноса</small>Вывоз и акты</article>
+        <div class="hero-visual">
+          <svg class="digger" viewBox="0 0 820 560" role="img" aria-label="Экскаватор хватает обломок клешнёй">
+            <ellipse cx="520" cy="512" rx="250" ry="22" fill="#d5e8d4"/>
+            <g class="ruin" transform="translate(78,-96)">
+              <rect x="36" y="248" width="150" height="230" rx="6" fill="#e7dfd4"/>
+              <rect x="52" y="268" width="36" height="26" fill="#c5d7e6"/>
+              <rect x="100" y="268" width="36" height="26" fill="#c5d7e6"/>
+              <rect x="52" y="308" width="36" height="26" fill="#d7e3ee"/>
+              <rect x="100" y="308" width="36" height="26" fill="#d7e3ee"/>
+              <g class="loose">
+                <animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" values="1;1;0;0;1" keyTimes="0;0.3;0.42;0.88;1"/>
+                <rect x="132" y="236" width="58" height="46" rx="4" fill="#cfc6b8" stroke="#8d8478" stroke-width="3"/>
+                <path d="M144 246l16 18M168 250l-8 14" stroke="#8d8478" stroke-width="2"/>
+              </g>
+            </g>
+            <g class="dust" fill="#cfc6b8">
+              <circle cx="176" cy="330" r="9"/>
+              <circle cx="198" cy="348" r="7"/>
+              <circle cx="154" cy="352" r="6"/>
+              <circle cx="210" cy="322" r="5"/>
+            </g>
+            <g class="rig">
+              <g>
+                <rect x="470" y="438" width="270" height="62" rx="31" fill="#242424"/>
+                <rect x="490" y="450" width="230" height="38" rx="19" fill="#3a3a3a"/>
+                <g fill="#161616">
+                  <circle cx="522" cy="469" r="16"/>
+                  <circle cx="578" cy="469" r="16"/>
+                  <circle cx="634" cy="469" r="16"/>
+                  <circle cx="690" cy="469" r="16"/>
+                </g>
+                <g fill="#f2b42d">
+                  <circle cx="522" cy="469" r="6"/>
+                  <circle cx="578" cy="469" r="6"/>
+                  <circle cx="634" cy="469" r="6"/>
+                  <circle cx="690" cy="469" r="6"/>
+                </g>
+              </g>
+              <rect x="530" y="352" width="210" height="96" rx="18" fill="#f2b42d"/>
+              <rect x="630" y="300" width="120" height="82" rx="14" fill="#f6c445"/>
+              <rect x="646" y="316" width="78" height="42" rx="7" fill="#1b2830"/>
+              <rect x="700" y="360" width="48" height="74" rx="10" fill="#d89a16"/>
+              <g>
+                <animateTransform attributeName="transform" type="rotate" dur="6.4s" repeatCount="indefinite"
+                  values="36 560 360;8 560 360;6 560 360;42 560 360;36 560 360"
+                  keyTimes="0;0.32;0.48;0.78;1" calcMode="spline"
+                  keySplines="0.4 0 0.2 1;0.2 0 0.2 1;0.3 0 0.1 1;0.45 0 0.2 1"/>
+                <rect x="300" y="342" width="260" height="36" rx="14" fill="#e39b12"/>
+                <rect x="340" y="352" width="130" height="10" rx="5" fill="#f6d78a"/>
+                <circle cx="560" cy="360" r="16" fill="#242424"/>
+                <circle cx="560" cy="360" r="7" fill="#f2b42d"/>
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" dur="6.4s" repeatCount="indefinite"
+                    values="8 300 360;36 300 360;34 300 360;-6 300 360;8 300 360"
+                    keyTimes="0;0.32;0.48;0.78;1" calcMode="spline"
+                    keySplines="0.4 0 0.2 1;0.2 0 0.2 1;0.3 0 0.1 1;0.45 0 0.2 1"/>
+                  <rect x="130" y="344" width="170" height="32" rx="12" fill="#f0b429"/>
+                  <rect x="160" y="354" width="90" height="8" rx="4" fill="#f8e2a8"/>
+                  <circle cx="300" cy="360" r="13" fill="#242424"/>
+                  <g class="bite">
+                    <animate attributeName="opacity" dur="6.4s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.34;0.44;0.9;1"/>
+                    <rect x="62" y="334" width="64" height="50" rx="4" fill="#d5cbbd" stroke="#8d8478" stroke-width="3"/>
+                    <path d="M74 344l16 18M108 348l-12 14" stroke="#8d8478" stroke-width="2"/>
+                  </g>
+                  <g>
+                    <animateTransform attributeName="transform" type="rotate" dur="6.4s" repeatCount="indefinite"
+                      values="-36 130 360;-36 130 360;0 130 360;0 130 360;-36 130 360"
+                      keyTimes="0;0.3;0.4;0.86;1"/>
+                    <path d="M130 360 C108 360 78 318 46 286" stroke="#242424" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M52 292 L24 286 L34 316 Z" fill="#1a1a1a"/>
+                    <path d="M40 300 L18 292 L30 314 Z" fill="#111"/>
+                  </g>
+                  <g>
+                    <animateTransform attributeName="transform" type="rotate" dur="6.4s" repeatCount="indefinite"
+                      values="36 130 360;36 130 360;0 130 360;0 130 360;36 130 360"
+                      keyTimes="0;0.3;0.4;0.86;1"/>
+                    <path d="M130 360 C108 360 78 402 46 434" stroke="#242424" stroke-width="18" fill="none" stroke-linecap="round"/>
+                    <path d="M52 428 L24 434 L34 404 Z" fill="#1a1a1a"/>
+                    <path d="M40 420 L18 428 L30 406 Z" fill="#111"/>
+                  </g>
+                  <circle cx="130" cy="360" r="12" fill="#1a1a1a"/>
+                  <circle cx="130" cy="360" r="5" fill="#f2b42d"/>
+                </g>
+              </g>
+            </g>
+          </svg>
         </div>
-      </div>
     </section>
 
     <div class="marquee" aria-hidden="true">
@@ -336,54 +438,6 @@
         <span>Дома</span><span>Фундаменты</span><span>Недострой</span><span>Цеха</span><span>Ангары</span><span>Вывоз мусора</span><span>Расчистка участка</span>
       </div>
     </div>
-
-    <section id="problems">
-      <div class="wrap">
-        <div class="split">
-          <div>
-            <div class="label">С чего начинают</div>
-            <h2>Узнаете свою ситуацию?</h2>
-          </div>
-          <p class="side-note">Сначала объект и смета. Потом решение, заходить на снос или нет.</p>
-        </div>
-        <div class="cards-3">
-          <article class="card reveal wait">
-            <div class="kicker">Участок</div>
-            <h3>Стоит дом или недострой, который больше не нужен</h3>
-            <p>Разберём, что именно сносить: стены, крышу, фундамент или всё вместе.</p>
-          </article>
-          <article class="card reveal wait d1">
-            <div class="kicker">Мусор</div>
-            <h3>После разбора некуда деть кирпич и бетон</h3>
-            <p>Вывоз закладываем отдельной строкой, а не «как получится» в конце.</p>
-          </article>
-          <article class="card reveal wait d2">
-            <div class="kicker">Старт</div>
-            <h3>Неясно, с чего начать и сколько это стоит</h3>
-            <p>Смотрим объект и присылаем расчёт: работы, техника, вывоз.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="steps">
-      <div class="wrap">
-        <div class="steps-head">
-          <div>
-            <div class="label">Как работаем</div>
-            <h2>Снос за 5 шагов</h2>
-          </div>
-          <p class="side-note">Состав работ виден в смете до старта.</p>
-        </div>
-        <div class="steps" id="steps">
-          <article class="step"><div class="num">01</div><strong>Заявка</strong><p>Что за объект, где стоит, есть ли фото.</p></article>
-          <article class="step"><div class="num">02</div><strong>Осмотр</strong><p>Выезд, размеры, из чего построено, как подъехать.</p></article>
-          <article class="step"><div class="num">03</div><strong>Смета</strong><p>Снос, погрузка и вывоз — разными строками.</p></article>
-          <article class="step"><div class="num">04</div><strong>Снос</strong><p>Разбор конструкций и погрузка на площадке.</p></article>
-          <article class="step"><div class="num">05</div><strong>Участок</strong><p>Вывоз и документы по факту работ.</p></article>
-        </div>
-      </div>
-    </section>
 
     <section id="packages">
       <div class="wrap">
@@ -538,7 +592,7 @@
 
   <footer>
     <div class="wrap foot">
-      <div><strong style="color:var(--ink)">ЛНС</strong><br>ломать не строить<br>Снос зданий любой сложности</div>
+      <div><strong style="color:var(--ink)">ЛНС</strong> — ломать не строить<br>Снос зданий любой сложности</div>
       <div>
         <a class="phone" href="tel:+79282577237">8 (928) 257-72-37</a><br>
         <a class="max-link" href="https://max.ru/u/f9LHodD0cOI24IJj4nevjBvinW_4zqVhPaOeiPi8Rpf3WPYDueIz5mMdSIY" target="_blank" rel="noopener">написать в макс</a>
@@ -549,7 +603,6 @@
   <script>
     const header = document.getElementById('header');
     const progress = document.getElementById('progress');
-    const steps = document.getElementById('steps');
     const burger = document.getElementById('burger');
     const menu = document.getElementById('menu');
     const onScroll = () => {
@@ -564,11 +617,10 @@
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('in');
-        if (entry.target.id === 'steps') entry.target.classList.add('on');
         io.unobserve(entry.target);
       });
     }, { threshold: 0.25 });
-    document.querySelectorAll('.wait, #steps').forEach((node) => io.observe(node));
+    document.querySelectorAll('.wait').forEach((node) => io.observe(node));
     burger.addEventListener('click', () => menu.classList.toggle('open'));
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.classList.remove('open')));
     document.getElementById('form').addEventListener('submit', (event) => {
