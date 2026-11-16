@@ -85,11 +85,26 @@
     .btn.dark { background: var(--ink); box-shadow: none; }
     .btn.dark:hover { background: #000; }
     .btn.full { width: 100%; }
-    .hero { padding: 18px 0 10px; overflow: hidden; }
-    .hero-grid {
-      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px;
-      align-items: center; min-height: 600px;
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 86px);
+      min-height: calc(100svh - 86px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 48px 0 64px;
     }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg video { width: 100%; height: 100%; object-fit: cover; object-position: 78% center; display: block; }
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, #f3f5f4 0%, rgba(243,245,244,0.96) 30%, rgba(243,245,244,0.78) 44%, rgba(243,245,244,0.22) 58%, rgba(243,245,244,0) 72%),
+        linear-gradient(180deg, rgba(243,245,244,0.4), transparent 14%, transparent 78%, rgba(243,245,244,0.75));
+    }
+    .hero-copy { position: relative; z-index: 1; max-width: 560px; }
     .eyebrow {
       color: var(--muted); font-weight: 700; letter-spacing: 0.14em;
       text-transform: uppercase; font-size: 13px; margin-bottom: 14px;
@@ -275,7 +290,12 @@
       .hero-grid, .split, .cards-3, .steps, .packages, .band, .cases, .calc, .row-2, .foot { grid-template-columns: 1fr; display: grid; }
       .steps { grid-template-columns: 1fr; }
       .steps::before, .steps::after { display: none; }
-      .hero-visual, .hero-visual video { min-height: 280px; border-radius: 18px; }
+      .hero { min-height: 92svh; padding: 28px 0 36px; }
+      .hero-bg video { object-position: 72% center; }
+      .hero-bg::after {
+        background:
+          linear-gradient(180deg, rgba(243,245,244,0.94) 0%, rgba(243,245,244,0.82) 42%, rgba(243,245,244,0.28) 68%, rgba(243,245,244,0.08) 100%);
+      }
       .logo-mark { width: 46px; height: 46px; }
       .contacts { margin-left: auto; }
     }
@@ -325,8 +345,13 @@
 
   <main id="top">
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
+      <div class="hero-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline poster="lns-hero-bg.jpg">
+          <source src="lns-hero-bg.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="wrap">
+        <div class="hero-copy">
           <div class="eyebrow">Профессиональный снос зданий любой сложности</div>
           <h1>
             <span><em>Сносим</em></span>
@@ -343,11 +368,6 @@
             </div>
             <div>Выезд инженера и расчёт — 0 ₽. Смета не изменится в процессе.</div>
           </div>
-        </div>
-        <div class="hero-visual">
-          <video autoplay muted loop playsinline poster="lns-excavator.jpg" aria-label="Экскаватор хватает бетон клешнёй">
-            <source src="lns-excavator.mp4" type="video/mp4">
-          </video>
         </div>
       </div>
     </section>
