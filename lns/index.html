@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ЛНС — снос зданий любой сложности</title>
+  <meta name="description" content="ЛНС. Ломать не строить. Снос зданий любой сложности. Смета до начала работ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f6f5;
+      --ink: #141816;
+      --muted: #5e6963;
+      --line: #e3e8e4;
+      --green: #2f9e44;
+      --green-deep: #1f7a34;
+      --green-soft: #e8f7ec;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Manrope, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    header { position: sticky; top: 0; z-index: 20; background: rgba(244,246,245,.92); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; }
+    header.scrolled { border-bottom-color: var(--line); }
+    .nav { display: flex; align-items: center; gap: 22px; min-height: 84px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo-mark { width: 48px; height: 48px; flex: none; }
+    .brand-name { display: block; font-weight: 800; font-size: 26px; letter-spacing: -.05em; line-height: 1; }
+    .brand-tag { display: block; margin-top: 3px; color: var(--green-deep); font-weight: 800; font-size: 12px; }
+    .menu { display: flex; gap: 18px; margin-left: auto; font-weight: 700; font-size: 15px; }
+    .contacts { text-align: right; }
+    .phone { font-weight: 800; font-size: 18px; letter-spacing: -.03em; }
+    .max-link { display: block; color: var(--green-deep); font-weight: 800; font-size: 14px; }
+    .phone:hover, .max-link:hover { color: var(--green-deep); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--green); color: #fff; border: 0; border-radius: 999px; padding: 14px 22px; font-weight: 800; cursor: pointer; }
+    .btn:hover { background: var(--green-deep); }
+    .btn.full { width: 100%; }
+    .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .burger span, .burger span:before, .burger span:after { display: block; width: 18px; height: 2px; background: var(--ink); margin: 0 auto; position: relative; }
+    .burger span:before, .burger span:after { content: ""; position: absolute; left: 0; }
+    .burger span:before { top: -6px; }
+    .burger span:after { top: 6px; }
+    .hero { position: relative; height: calc(100svh - 84px); min-height: 640px; display: flex; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg video { width: 100%; height: 100%; object-fit: cover; object-position: 72% center; }
+    .hero-bg:after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #f4f6f5 0%, rgba(244,246,245,.94) 28%, rgba(244,246,245,.55) 48%, rgba(244,246,245,0) 70%); }
+    .hero .wrap { position: relative; z-index: 1; display: flex; align-items: stretch; }
+    .hero-copy { max-width: 560px; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 0 36px; }
+    .eyebrow { color: var(--muted); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 12px 0 0; font-size: clamp(52px, 6vw, 78px); line-height: .92; letter-spacing: -.05em; text-transform: uppercase; }
+    h1 span { display: block; }
+    h1 .accent { color: var(--green); }
+    .lead { max-width: 460px; font-size: 18px; margin: 18px 0; }
+    .trust { display: flex; gap: 12px; max-width: 420px; }
+    section { padding: 88px 0; }
+    h2 { margin: 8px 0 0; font-size: clamp(36px, 4vw, 52px); line-height: 1.02; letter-spacing: -.04em; }
+    .split { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: end; }
+    .side-note { border-left: 1px solid #cfd6d1; padding-left: 18px; font-size: 18px; }
+    .cards, .packages, .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .card, .package, .case, .extra, form, details { background: #fff; border: 1px solid var(--line); border-radius: 22px; }
+    .card, .package, .case { padding: 22px; }
+    .card h3, .package h3, .case h3, .extra h3 { margin: 8px 0; font-size: 26px; letter-spacing: -.03em; line-height: 1.15; }
+    .kicker { color: var(--green-deep); font-weight: 800; font-size: 13px; }
+    .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 32px; }
+    .step { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; min-height: 180px; }
+    .num { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; font-weight: 800; margin-bottom: 16px; }
+    .package { display: flex; flex-direction: column; position: relative; }
+    .package.popular { outline: 2px solid var(--green); }
+    .badge { position: absolute; top: 16px; right: 16px; background: var(--green-soft); color: var(--green-deep); font-weight: 800; font-size: 12px; border-radius: 999px; padding: 5px 10px; }
+    .package ul { margin: 8px 0 20px; padding-left: 18px; flex: 1; }
+    .price { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+    .band { background: #fff; border-radius: 28px; padding: 28px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; }
+    .extra { padding: 16px 16px 4px; }
+    .shot { height: 190px; border-radius: 16px; margin-bottom: 12px; background: linear-gradient(160deg, #e7f8eb, #c5d7c9); display: grid; place-items: center; color: var(--green-deep); font-weight: 800; }
+    .meta { color: var(--muted); font-weight: 700; font-size: 14px; }
+    .calc { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; }
+    form { padding: 22px; display: grid; gap: 12px; }
+    label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }
+    input, select, textarea { width: 100%; border: 1px solid var(--line); background: #f7f8f7; border-radius: 14px; padding: 12px 14px; }
+    textarea { min-height: 90px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .check { display: flex; gap: 8px; align-items: flex-start; color: var(--muted); font-size: 13px; font-weight: 600; }
+    .note { min-height: 22px; color: var(--green-deep); font-weight: 700; }
+    details { padding: 4px 18px; margin-top: 10px; }
+    summary { cursor: pointer; font-weight: 800; font-size: 18px; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; }
+    summary::-webkit-details-marker { display: none; }
+    summary:after { content: "+"; color: var(--green); font-size: 24px; }
+    details p { margin: 0 0 14px; color: #465049; }
+    footer { padding: 10px 0 36px; color: var(--muted); }
+    .foot { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 20px; }
+    @media (max-width: 980px) {
+      .menu { display: none; }
+      .menu.open { display: flex; flex-direction: column; position: absolute; top: 84px; left: 0; right: 0; background: #fff; padding: 16px 20px 20px; border-bottom: 1px solid var(--line); }
+      .burger { display: inline-block; margin-left: auto; }
+      .nav { flex-wrap: wrap; }
+      .contacts { width: 100%; text-align: left; }
+      .hero { height: auto; min-height: 100svh; }
+      .hero-copy { min-height: 78svh; }
+      .hero-bg:after { background: linear-gradient(180deg, rgba(244,246,245,.95), rgba(244,246,245,.78) 55%, rgba(244,246,245,.2)); }
+      .split, .cards, .packages, .cases, .steps, .band, .calc, .row, .foot { grid-template-columns: 1fr; display: grid; }
+      h1 { font-size: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <svg class="logo-mark" viewBox="0 0 72 72" aria-hidden="true">
+          <rect width="72" height="72" rx="16" fill="#141816"/>
+          <rect x="27" y="40" width="18" height="14" rx="2" fill="#efeae2"/>
+          <path d="M12 20h16l8 16-10 4-14-10z" fill="#3DDC5A"/>
+          <path d="M60 20H44l-8 16 10 4 14-10z" fill="#3DDC5A"/>
+          <circle cx="36" cy="34" r="4" fill="#f2b42d"/>
+        </svg>
+        <span><span class="brand-name">ЛНС</span><span class="brand-tag">ломать не строить</span></span>
+      </a>
+      <nav class="menu" id="menu">
+        <a href="#services">Услуги</a>
+        <a href="#steps">Как работаем</a>
+        <a href="#cases">Объекты</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <div class="contacts">
+        <a class="phone" href="tel:+79282577237">8 (928) 257-72-37</a>
+        <a class="max-link" href="https://max.ru/u/f9LHodD0cOI24IJj4nevjBvinW_4zqVhPaOeiPi8Rpf3WPYDueIz5mMdSIY" target="_blank" rel="noopener">написать в макс</a>
+      </div>
+      <a class="btn" href="#calc">Получить расчёт</a>
+      <button class="burger" id="burger" aria-label="Меню"><span></span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline poster="lns-hero-bg.jpg">
+          <source src="lns-hero-bg.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="wrap">
+        <div class="hero-copy">
+          <div>
+            <div class="eyebrow">Профессиональный снос зданий любой сложности</div>
+            <h1>Сносим<br>Сортируем<br><span class="accent">Очищаем</span></h1>
+          </div>
+          <div>
+            <p class="lead">Освободим ваш участок от старого фундамента, ветхого дома или промышленного цеха за 7–10 дней.</p>
+            <a class="btn" href="#calc">Получить бесплатный расчёт →</a>
+          </div>
+          <div class="trust">
+            <div>Выезд инженера и расчёт — 0 ₽.<br>Смета не изменится в процессе.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problems">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <div class="eyebrow">Ваши задачи</div>
+            <h2>Узнаете свою ситуацию?</h2>
+          </div>
+          <p class="side-note">Работаем по договору. Смета до старта, работы и вывоз — разными строками.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="kicker">Участок</div><h3>Дом или недострой больше не нужен</h3><p>Разберём стены, крышу и фундамент. Участок останется свободным.</p></article>
+          <article class="card"><div class="kicker">Мусор</div><h3>Некуда деть кирпич и бетон</h3><p>Вывоз считаем отдельно и забираем то, что нельзя оставить на площадке.</p></article>
+          <article class="card"><div class="kicker">Старт</div><h3>Неясно, сколько это стоит</h3><p>Смотрим объект и называем цену до договора. Без прайса «от» на сайте.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="steps">
+      <div class="wrap">
+        <div class="eyebrow">Как работаем</div>
+        <h2>Снос за 5 понятных шагов</h2>
+        <div class="steps">
+          <article class="step"><div class="num">01</div><strong>Заявка</strong><p>Объект, адрес и фото, если есть.</p></article>
+          <article class="step"><div class="num">02</div><strong>Выезд</strong><p>Инженер смотрит подъезд, материал и объём.</p></article>
+          <article class="step"><div class="num">03</div><strong>Смета</strong><p>Фиксируем состав работ до старта.</p></article>
+          <article class="step"><div class="num">04</div><strong>Снос</strong><p>Разбор, погрузка, сортировка.</p></article>
+          <article class="step"><div class="num">05</div><strong>Участок</strong><p>Вывоз и передача площадки.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="eyebrow">Услуги</div>
+        <h2>Три формата сноса</h2>
+        <p class="lead">Цена зависит от объекта. На сайте её нет: посчитаем после осмотра или по фото.</p>
+        <div class="packages">
+          <article class="package">
+            <div class="kicker">Формат 1</div><h3>Конструкции</h3>
+            <ul><li>Стены и перекрытия</li><li>Крыша</li><li>Мусор на площадке</li><li>Без вывоза</li></ul>
+            <div class="price">по смете</div><a class="btn full" href="#calc">Получить расчёт</a>
+          </article>
+          <article class="package popular">
+            <div class="badge">Чаще считают</div>
+            <div class="kicker">Формат 2</div><h3>Снос и вывоз</h3>
+            <ul><li>Снос здания</li><li>Погрузка</li><li>Вывоз мусора</li><li>Уборка пятна</li></ul>
+            <div class="price">по смете</div><a class="btn full" href="#calc">Получить расчёт</a>
+          </article>
+          <article class="package">
+            <div class="kicker">Формат 3</div><h3>Под ключ</h3>
+            <ul><li>Здание и фундамент</li><li>Вывоз</li><li>Расчистка участка</li><li>Акты по работам</li></ul>
+            <div class="price">по смете</div><a class="btn full" href="#calc">Получить расчёт</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="band">
+          <div>
+            <div class="eyebrow">Отдельная задача</div>
+            <h2>Фундамент и расчистка</h2>
+            <p class="lead">Если коробку уже снесли, а плита, лента или завал остались.</p>
+            <a class="btn" href="#calc">Получить расчёт →</a>
+          </div>
+          <div>
+            <article class="extra"><div class="kicker">01</div><h3>Что осталось</h3><p>Фундамент, полы, куски плит.</p></article>
+            <article class="extra"><div class="kicker">02</div><h3>Как забирать</h3><p>Ломать на месте или резать и грузить.</p></article>
+            <article class="extra"><div class="kicker">03</div><h3>Куда деть</h3><p>Вывоз и то, что можно оставить.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="wrap">
+        <div class="eyebrow">Объекты</div>
+        <h2>Выполненные работы</h2>
+        <div class="cases">
+          <article class="case"><div class="shot">Фото добавим</div><div class="meta">Объект 1</div><h3>Дом или недострой</h3><p>Адрес, метраж и срок поставим, когда будут снимки.</p></article>
+          <article class="case"><div class="shot">Фото добавим</div><div class="meta">Объект 2</div><h3>Фундамент</h3><p>Место под второй кейс.</p></article>
+          <article class="case"><div class="shot">Фото добавим</div><div class="meta">Объект 3</div><h3>Цех или ангар</h3><p>Без чужих объектов и выдуманных сроков.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calc">
+      <div class="wrap calc">
+        <div>
+          <div class="eyebrow">Расчёт</div>
+          <h2>Узнайте стоимость вашего объекта</h2>
+          <p class="lead">Напишите, что сносить. Или сразу звоните <a class="phone" href="tel:+79282577237">8 (928) 257-72-37</a> и <a class="max-link" href="https://max.ru/u/f9LHodD0cOI24IJj4nevjBvinW_4zqVhPaOeiPi8Rpf3WPYDueIz5mMdSIY" target="_blank" rel="noopener">напишите в Макс</a>.</p>
+        </div>
+        <form id="form">
+          <div class="row">
+            <label>Имя<input name="name" required placeholder="Как к вам обращаться"></label>
+            <label>Телефон<input name="phone" required placeholder="8 928 000-00-00"></label>
+          </div>
+          <label>Что сносить
+            <select name="object"><option>Дом</option><option>Недострой</option><option>Фундамент</option><option>Цех или ангар</option><option>Другое</option></select>
+          </label>
+          <label>Комментарий<textarea name="comment" placeholder="Город, этажность, подъезд для техники"></textarea></label>
+          <label class="check"><input type="checkbox" required> Согласен на обработку данных, чтобы получить расчёт.</label>
+          <button class="btn full" type="submit">Заказать расчёт</button>
+          <div class="note" id="note"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="eyebrow">Вопросы</div>
+        <h2>Частые вопросы</h2>
+        <details><summary>Можно посчитать без выезда?</summary><p>Ориентир — по фото и описанию. Точная смета после осмотра: важны подъезд, материал и что оставляем.</p></details>
+        <details><summary>Куда девается мусор?</summary><p>Если вывоз входит в работу, его увозят с площадки. Это отдельная строка сметы.</p></details>
+        <details><summary>Сносите только часть?</summary><p>Да, если остальное нужно сохранить. В смете написано, что разбираем и что не трогаем.</p></details>
+        <details><summary>Фундамент тоже убираете?</summary><p>Да. Можно включить сразу или посчитать отдельно, если коробку уже снесли.</p></details>
+        <details><summary>Нужны ли документы?</summary><p>Зависит от объекта. До старта говорим, если без бумаг начинать нельзя. Оформление разрешений в смету не входит, пока это не записано отдельно.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div><strong style="color:var(--ink)">ЛНС</strong> — ломать не строить<br>Снос зданий любой сложности</div>
+      <div>
+        <a class="phone" href="tel:+79282577237">8 (928) 257-72-37</a><br>
+        <a class="max-link" href="https://max.ru/u/f9LHodD0cOI24IJj4nevjBvinW_4zqVhPaOeiPi8Rpf3WPYDueIz5mMdSIY" target="_blank" rel="noopener">написать в макс</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const header = document.getElementById('header');
+    document.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 8), { passive: true });
+    const menu = document.getElementById('menu');
+    document.getElementById('burger').addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.classList.remove('open')));
+    document.getElementById('form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.getElementById('note').textContent = 'Форма пока не отправляет заявку. Позвоните или напишите в Макс.';
+      event.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>
